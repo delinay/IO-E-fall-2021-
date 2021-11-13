@@ -1,0 +1,62 @@
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/addons/p5.dom.js"></script>
+    <script src="../lib/p5.speech.js"></script>
+    <script>
+        var words = ["Mango", "Starfruit", "Pineapple", "Orangutan"]; // some words
+        var iptr = 0; // a counter for the words
+
+        var myVoice = new p5.Speech(); // new P5.Speech object
+
+        var listbutton; // button
+
+        var voiceNum = 0;
+
+        function setup() {
+            // graphics stuff:
+            createCanvas(800, 1000);
+            background(218, 179, 255);
+            fill(255, 204, 255);
+            // instructions:
+            textSize(72);
+            textAlign(CENTER);
+            text("Click 4 Fruits!", width / 2, height / 2);
+            // button:
+            listbutton = createButton('Counterbalance Voices');
+            listbutton.position(335, 810);
+            listbutton.mousePressed(doList);
+
+            // say hello:
+            myVoice.speak('testing one two three!!!');
+
+        }
+
+        function draw() {
+
+        }
+
+        function doList() {
+            myVoice.listVoices();
+        }
+
+        function keyPressed() {
+            background(179, 198, 255);
+        }
+
+        function mousePressed() {
+            // if in bounds:
+            if (mouseX < width && mouseY < height) {
+                ellipse(mouseX, mouseY, 50, 50);
+                voiceNum = (Math.floor(random(myVoice.voices.length)));
+                myVoice.setVoice(voiceNum);
+                console.log(myVoice.voices[voiceNum].lang);
+                myVoice.speak(words[iptr]);
+                iptr = (iptr + 1) % words.length; // increment
+            }
+        }
+    </script>
+</head>
+
+<body>
+</body></html>

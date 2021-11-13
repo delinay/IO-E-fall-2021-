@@ -1,0 +1,120 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.min.js"></script>
+    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+
+    <script src="lib/p5.speech.js"></script>
+</head>
+
+<body>
+    <script>
+        let monkeys = [];
+        var myRec = new p5.SpeechRec('en-US', parseResult); // new P5.SpeechRec object
+        myRec.continuous = true; // do continuous recognition
+        myRec.interimResults = true; // allow partial recognition (faster, less accurate)
+
+        let cam;
+        var x, y;
+        var dx, dy;
+        let monkey = false;
+
+        function preload() {
+            monkeys[0] = loadImage('images/santa.jpg');
+            monkeys[1] = loadImage('images/candy_cane.jpg');
+            monkeys[2] = loadImage('images/christmas_tree.jpg');
+            monkeys[3] = loadImage('images/cookies.jpg');
+            monkeys[4] = loadImage('images/hot_chocolate.jpg');
+            monkeys[5] = loadImage('images/rudolph.jpg');
+            monkeys[6] = loadImage('images/snowman.jpg');
+        }
+
+        function setup() {
+            // graphics stuff:
+            createCanvas(windowWidth, windowHeight);
+            cam = createCapture(VIDEO);
+            // instructions:
+            cam.hide();
+
+
+            text("Say Some Christmas Words!", 40, 70);
+
+            myRec.onResult = parseResult; // now in the constructor
+            myRec.start(); // start engine
+        }
+
+        function draw() {
+            if (monkey == true) {
+                image(cam, 5, 11, width, height);
+                text("You stole the cookies the whole time", 20, 20);
+
+            }
+
+        }
+
+        function parseResult() {
+
+            var mostrecentword = myRec.resultString.split(' ').pop();
+            if (mostrecentword.indexOf("santa") !== -1) {
+                image(monkeys[0], 0, 0, width, height);
+                monkey = false;
+            } else if (mostrecentword.indexOf("candy") !== -1) {
+                image(monkeys[1], 0, 0, width, height);
+                monkey = false;
+            } else if (mostrecentword.indexOf("tree") !== -1) {
+                image(monkeys[2], 0, 0, width, height);
+                monkey = false;
+            } else if (mostrecentword.indexOf("cookies") !== -1) {
+                image(monkeys[3], 0, 0, width, height);
+                monkey = false;
+            } else if (mostrecentword.indexOf("chocolate") !== -1) {
+                image(monkeys[4], 0, 0, width, height);
+                monkey = false;
+            } else if (mostrecentword.indexOf("rudolph") !== -1) {
+                image(monkeys[5], 0, 0, width, height);
+
+                monkey = false;
+            } else if (mostrecentword.indexOf("snowman") !== -1) {
+                image(monkeys[6], 0, 0, width, height);
+                monkey = false;
+            } else if (mostrecentword.indexOf("monkey") !== -1) {
+                monkey = true;
+
+
+            }
+
+            if (mostrecentword.indexOf("Santa") !== -1) {
+                image(monkeys[0], 0, 0, width, height);
+                monkey = false;
+            } else if (mostrecentword.indexOf("Candy") !== -1) {
+                image(monkeys[1], 0, 0, width, height);
+                monkey = false;
+            } else if (mostrecentword.indexOf("Tree") !== -1) {
+                image(monkeys[2], 0, 0, width, height);
+                monkey = false;
+            } else if (mostrecentword.indexOf("Cookies") !== -1) {
+                image(monkeys[3], 0, 0, width, height);
+                monkey = false;
+            } else if (mostrecentword.indexOf("Chocolate") !== -1) {
+                image(monkeys[4], 0, 0, width, height);
+                monkey = false;
+            } else if (mostrecentword.indexOf("Rudolph") !== -1) {
+                image(monkeys[5], 0, 0, width, height);
+                monkey = false;
+
+            } else if (mostrecentword.indexOf("Snowman") !== -1) {
+                image(monkeys[6], 0, 0, width, height);
+                monkey = false;
+            }
+            console.log(mostrecentword);
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>
